@@ -14,3 +14,9 @@ cat 1-big.txt | jq --raw-input -f 1-2.jq
 jq -nRf 2-1.jq 2-big.txt
 jq -nRf 2-2.jq 2-big.txt
 ```
+
+## Day 3
+
+```
+jq -nRf 3-1.jq 3-big.txt
+```
