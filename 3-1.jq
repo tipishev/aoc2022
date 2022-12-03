@@ -1,5 +1,3 @@
-# [inputs]
-
 def prio:
   explode[]
   | if (. < 97) then (. - 38) else (. - 96) end
