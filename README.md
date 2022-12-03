@@ -17,6 +17,9 @@ jq -nRf 2-2.jq 2-big.txt
 
 ## Day 3
 
+uses an undocumented function `_nwise` for chunking.
+
 ```
 jq -nRf 3-1.jq 3-big.txt
+jq -nRf 3-2.jq 3-big.txt
 ```
