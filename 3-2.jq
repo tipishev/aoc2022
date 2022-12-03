@@ -10,21 +10,20 @@ def intersect:
 def badge:
   .[0] as $first | .[1] as $second | .[2] as $third |
   [
+    [
+      [$first, $second],
+      [$second, $third],
+      [$first, $third]
+    ][]
+  | intersect] |
+  .[0] as $first_second | .[1] as $second_third | .[2] as $first_third |
   [
-    [$first, $second],
-    [$second, $third],
-    [$first, $third]
+  [
+    [$first_second, $second_third],
+    [$second_third, $first_third],
+    [$first_second, $first_third]
   ][] |
-  intersect] |
-  .[0] as $first | .[1] as $second | .[2] as $third |
-  [
-  [
-    [$first, $second],
-    [$second, $third],
-    [$first, $third]
-  ][] |
-  intersect]
-  | unique | first
+  intersect] | unique | first
 ;
 
 # _nwise is undocumented
