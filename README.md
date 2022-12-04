@@ -23,3 +23,10 @@ uses an undocumented function `_nwise` for chunking.
 jq -nRf 3-1.jq 3-big.txt
 jq -nRf 3-2.jq 3-big.txt
 ```
+
+## Day 4
+
+```
+jq -nRf 4-1.jq 4-big.txt
+# jq -nRf 4-2.jq 4-big.txt
+```
