@@ -32,7 +32,6 @@ def parse:
   moves: [.[1] | split(",")[] | split(" ")
           | [.[1], .[3], .[5]] | [.[] | tonumber]]
   }
-  # | .stack |= cheat_parse  # FIXME
 ;
 
 def process:

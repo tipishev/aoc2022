@@ -1,29 +1,30 @@
-def cheat_parse:
-[
-  ["B", "Q", "C"],
-  ["R", "Q", "W", "Z"],
-  ["B", "M", "R", "L", "V"],
-  ["C", "Z", "H", "V", "T", "W"],
-  ["D", "Z", "H", "B", "N", "V", "G"], ["H", "N", "P", "C", "J", "F", "V", "Q"],
-  ["D", "G", "T", "R", "W", "Z", "S"],
-  ["C", "G", "M", "N", "B", "W", "Z", "P"],
-  ["N", "J", "B", "M", "W", "Q", "F", "P"]
-]
+def _parse_line:
+  if .input == "" then .output
+  else
+    .input[:3] as $three_chars
+    | if $three_chars == "   "
+      then {
+              input: .input[4:],
+	      output: (.output + [null])
+           } | _parse_line
+      else {
+             input: .input[4:],
+	     output: (.output + [$three_chars[1:2]])
+           } | _parse_line
+      end 
+  end
 ;
+
+def parse_line: {input: ., output: []} | _parse_line;
 
 def parse:
   [inputs]
   | join(",") | split(",,")  # split by empty line into stack and moves
   |{stack: [
-      (.[0]
+      .[0]
       | split(",")
-      [:-1]                   # drop the stack labels row
       | .[]
-      | gsub("   "; "."))       # use dot as a placeholder for empty
-      | gsub("\\[|\\]| "; "")   # lose the brackets and spaces
-      | split("")               # string to list
-      | [.[] | if . == "."
-         then null else . end]  # replace dots with nulls
+      | parse_line
     ]
   | transpose
   | [.[] | reverse]  # stackishly nulls are in the tail
@@ -31,7 +32,6 @@ def parse:
   moves: [.[1] | split(",")[] | split(" ")
           | [.[1], .[3], .[5]] | [.[] | tonumber]]
   }
-  | .stack |= cheat_parse  # FIXME
 ;
 
 def process:

@@ -30,3 +30,10 @@ jq -nRf 3-2.jq 3-big.txt
 jq -nRf 4-1.jq 4-big.txt
 jq -nRf 4-2.jq 4-big.txt
 ```
+
+## Day 5
+
+```
+jq -nRf 5-1.jq 5-big.txt
+jq -nRf 5-2.jq 5-big.txt
+```
