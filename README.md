@@ -37,3 +37,10 @@ jq -nRf 4-2.jq 4-big.txt
 jq -nRf 5-1.jq 5-big.txt
 jq -nRf 5-2.jq 5-big.txt
 ```
+
+## Day 6
+
+```
+jq -nRf 6-1.jq 6-big.txt
+jq -nRf 6-2.jq 6-big.txt
+```
