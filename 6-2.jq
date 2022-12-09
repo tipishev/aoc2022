@@ -5,8 +5,8 @@ def rolling_window:
   | range(0, $len - 14)
   | [. + 14, $input[.:. + 14]]
 ;
-def select_no_dupes:
-  select(.[1] | has_no_dupes)
+def first_no_dupes:
+  [.[] | select(.[1] | has_no_dupes)][0][0]
 ;
 
-[inputs | rolling_window | select_no_dupes] | .[0][0]
+inputs | rolling_window | first_no_dupes

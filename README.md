@@ -44,3 +44,20 @@ jq -nRf 5-2.jq 5-big.txt
 jq -nRf 6-1.jq 6-big.txt
 jq -nRf 6-2.jq 6-big.txt
 ```
+
+## Day 7
+
+```
+jq -nRf 7-1.jq 7-big.txt
+jq -nRf 7-2.jq 7-big.txt
+```
+
+## Day 8
+
+Man, fuck those eaves, why don't the Elves want to see the tallest tree in the distance?
+Part 2 is inefficient, takes a few seconds on a Macbook M1, about a minute on my home laptop.
+
+```
+jq -nRf 8-1.jq 8-big.txt
+jq -nRf 8-2.jq 8-big.txt
+```

@@ -77,7 +77,6 @@ def score: .left * .right * .top * .bottom;
           , (parse_right | rows_visibility("right"))
           , (parse_top | rows_visibility("top"))
           , (parse_bottom | rows_visibility("bottom"))
-] | flatten | aggregate | [.[] | score] | max
-
-# ["25512"] | (parse_left | rows_visibility("left"))
+]
+| flatten | aggregate | [.[] | score] | max
 
