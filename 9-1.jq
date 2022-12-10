@@ -13,14 +13,46 @@ def move_head:  # change head position depending on move
   else error("unrecognized direction '\(.move)'")
   end;
 
-def move_tail: # change tail position depending on head
-  [4, 20]
-;
+def to_vector: # convert 2 points into a vector
+  [(first | first) - (last | first),
+   (first |  last) - (last | last)];
 
-def process:
+def vector_add: # add 2 vectors
+  [(first | first) + (last | first),
+   (first | last)  + (last | last)];
+
+def vector_length: first*first + last*last | sqrt;
+
+def to_movement:
+ # when touching the tail doesn't move
+ if (. | vector_length) < 2 then [0, 0]
+
+ # linear stretch
+ elif . == [ 0,  2] then [ 0,  1]
+ elif . == [ 2,  0] then [ 1,  0]
+ elif . == [ 0, -2] then [ 0, -1]
+ elif . == [-2,  0] then [-1,  0]
+
+ # diagonal stretch
+ elif . == [ 1,  2] then [ 1,  1]
+ elif . == [ 2,  1] then [ 1,  1]
+ elif . == [ 2, -1] then [ 1, -1]
+ elif . == [ 1, -2] then [ 1, -1]
+ elif . == [-1, -2] then [-1, -1]
+ elif . == [-2, -1] then [-1, -1]
+ elif . == [-2,  1] then [-1,  1]
+ elif . == [-1,  2] then [-1,  1]
+
+ else error("wat?!") end;
+
+def move_tail: # change tail position depending on head
+  ([.head_at, .tail_at] | to_vector | to_movement) as $delta
+  | [.tail_at, $delta] | vector_add;
+
+def track_tail_visits:
   reduce .[] as $move
-  ( # initial state
-    {head_at: [0, 0], tail_at: [0, 0], tail_visited: [[0, 0]]};
+  ( # initial state: everything at the origin
+    [0, 0] | {head_at: ., tail_at: ., tail_visited: [.]};
 
     . # update rule
     | ({head_at, $move}   | move_head) as $new_head_at
@@ -29,7 +61,8 @@ def process:
        tail_at: $new_tail_at,
        tail_visited: (.tail_visited + [$new_tail_at]) | unique}
   )
+  | .tail_visited
 ;
 
-# main pipeline
-[inputs] | parse | expand | process
+# the main pipeline
+[inputs] | parse | expand | track_tail_visits | length
