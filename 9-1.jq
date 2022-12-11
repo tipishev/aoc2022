@@ -62,9 +62,9 @@ def track_tail_visits:
     | ({tail_at, head_at} | move_tail) as $tail_at
     | {head_at: $head_at,
        tail_at: $tail_at,
-       tail_visited: (.tail_visited + [$tail_at]) | unique}
+       tail_visited: (.tail_visited + [$tail_at])}
   )
-  | .tail_visited
+  | .tail_visited | unique
 ;
 
 # the main pipeline
