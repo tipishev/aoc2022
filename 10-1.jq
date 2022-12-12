@@ -1,4 +1,4 @@
-[
+def parse: [
   foreach (inputs/" "
           | [.[0], (.[1] // empty | tonumber)]) as $command
   (
@@ -11,4 +11,16 @@
       error("wat?!")
     end;
     .)
-]
+];
+
+def twenties:
+  reduce .[] as $item
+  ({search: 20, out: [], prev: null};
+  if $item.cycle >= .search
+    then {out: (.out + [.prev.X * .search]),
+          search: (.search + 40),
+	  prev: $item}
+  else . | .prev = $item
+  end) | .out | add;
+
+parse | twenties
